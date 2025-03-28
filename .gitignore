@@ -1,0 +1,53 @@
+# Virtual environment files
+env/
+venv/
+virtualenv/
+.venv/
+
+# Byte-compiled files
+*.py[cod]
+*.pyo
+
+# Logs
+*.log
+logs/
+flask.log
+
+# Database files
+*.db
+*.sqlite3
+instance/db.sqlite
+
+# Migrations
+migrations/
+alembic/
+
+# IDE and editor files
+.idea/
+.vscode/
+.pycharm/
+.ds_store
+
+# Node modules and package-lock files
+node_modules/
+package-lock.json
+yarn.lock
+
+# Coverage and testing files
+.coverage
+coverage.xml
+tests.xml
+test-results.xml
+
+# Flask static files
+static/
+
+# Other
+.gitattributes
+.gitmodules
+*.iml
+*.bak
+
+__pycache__
+.env
+service_account.json

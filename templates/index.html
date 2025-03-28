@@ -1,0 +1,286 @@
+<!--
+A friendly reminder from @libyzyx0:
+
+Copy pasting this UI design and claiming it as your own doesn't make you a good programmer.
+
+Go and try to design your own UI to enhance your creativity, don't let your laziness stops you to be a good programmer!
+
+I hope that this message will help you to grow and to be a better programmer, thanks me later!
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoti API</title><link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css">
+
+  <style>
+    pre[class*="language-"] {
+      background: #1c1c1c !important;
+      border-radius: 6px;
+      padding: 10px 10px;
+      font-size: 14px;
+      margin: 20px 0;
+    }
+    .token.keyword {
+      color: #31ff6e !important;
+    }
+    .token.function {
+      color: #d37dff !important;
+    }
+    .line-numbers .line-numbers-rows {
+      border-right: 1px solid #232323 !important;
+    }
+    .line-numbers-rows span::before {
+      color: #5e5e5e !important;
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div>
+      <h1>Shoti API</h1>
+    </div>
+    <div>
+      <button id="menu-btn">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+      
+      <ul>
+        <li><a href="/">Start</a></li>
+        <li><a href="/docs">Documentation</a></li>
+        <li><a href="/Leaderboard">Leaderboard</a></li>
+        <li><a href="/status">API Status</a></li>
+        <li><a href="/new">Contribute Shoti</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="nav-item-container" id="nav-items">
+      <ul>
+        <li><a href="/">
+          <ion-icon name="planet-sharp"></ion-icon>
+          <span>Start</span>
+        </a></li>
+        <li><a href="/docs">
+          <ion-icon name="book"></ion-icon>
+          <span>Documentation</span>
+        </a></li>
+        <li><a href="/leaderboard">
+          <ion-icon name="stats-chart"></ion-icon>
+          <span>Leaderboard</span>
+        </a></li>
+        <li><a href="/status">
+          <ion-icon name="information-circle"></ion-icon>
+          <span>API Status</span>
+        </a></li>
+        <li><a href="/new">
+          <ion-icon name="heart-sharp"></ion-icon>
+          <span>Contribute Shoti</span>
+        </a></li>
+        
+      </ul>
+    </div>
+
+  <section id="hero">
+    <div>
+      <div class="cmd">
+        <span><span style="color: #31ff6e;">$</span> <span style="color: #d37dff;">npm</span> i shoti-api</span>
+      </div>
+
+      <h1>High Quality Shoti API Videos and Images.</h1>
+      <p>
+        Shoti API sends random beautiful, cute, and hot girl thirst-trap videos & images from TikTok, with a collection of over 300+ shoti's.
+      </p>
+    </div>
+    <div class="buttons-container">
+      <button class="btn-solid">
+        Get Apikey
+      </button>
+      <a href="#gs">
+        <button class="btn-outline">Quick Guide</button>
+      </a>
+    </div>
+    
+    <div class="scroll-down">
+      <a href="#gs">
+      <p style="font-size: 13px; font-weight: bold;font-family: 'Electrolize', sans-serif;color: currentColor;">
+        LEARN MORE
+      </p>
+      <svg style="height:50;" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17 8.5L12.5 13L8 8.5M17 12.5L12.5 17L8 12.5" stroke="currentColor" stroke-width="1"></path> </g></svg>
+      </a>
+    </div>
+  </section>
+
+  <section id="gs">
+    <header>
+      <h1>Getting Started</h1>
+      <div class="hline"></div>
+    </header>
+
+    <div class="container">
+      <p style="font-size: 13px;">
+        To use <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span> you must install this package.</span>
+
+      <pre><code class="language-powershell line-numbers"># for nodejs
+npm install shoti
+
+# for python
+pip install shoti</code></pre>
+
+      <p style="font-size: 13px;">
+        Using Shoti API JavaScript wrapper:</span>
+
+      <pre><code class="language-js line-numbers">import Shoti from 'shoti';
+
+/* Initialize with API key */
+const shoti = new Shoti("YOUR-APIKEY"); //$shoti-xxxx
+
+/* Fetch data (image or video) */
+const data = await shoti.getShoti({ type: "image|video" });
+
+/* Print the result */
+console.log("Shoti Result:", data);
+      </code></pre>
+      <p style="font-size: 13px;">
+        Using Shoti API Python wrapper:</span>
+
+      <pre class="language-python line-numbers"><code>from shoti import Shoti
+
+# Initialize with API key
+shoti = Shoti("YOUR-APIKEY")  # $shoti-xxxx
+
+# Fetch data (image or video)
+data = shoti.get_shoti(type="image|video")
+
+# Print the result
+print("Shoti Result:", data)</code></pre>
+      <p style="font-size: 13px;">
+        Shoti API response output:</span>
+
+      <pre><code class="language-json line-numbers">{
+  "code": number,
+  "result": {
+    "content": string | Array[string,...], //If the type is video, this will be string, else it will be array of string's.
+    "duration": string,
+    "region": string, //ISO 3166-1
+    "title": string,
+    "type": "video" | "image",
+    "user": {
+      "avatar": string,
+      "nickname": string,
+      "username": string
+    }
+  }
+}</code></pre>
+      <p style="font-size: 13px;">
+        That's all the basics for getting videos or images from <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span>. For more detailed documentation please <a style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;" href="/docs/installation">read here</a>.
+      </p>
+    </div>
+
+
+  </section>
+
+  <section id="contributors">
+    <header>
+      <h1>Top Shoti Contributors</h1>
+      <div class="hline"></div>
+    </header>
+    
+     <p style="font-size: 13px;margin-top: 10px;">
+        Thanks to all of this top 10 people's for adding videos and images to our Shoti API.
+    <div>
+      <div class="splide" id="cslider">
+    <div class="splide__track">
+        <ul class="splide__list">
+            <li class="splide__slide">
+                <img src="https://avatars.githubusercontent.com/u/107909653?v=4" alt="Person 1" class="slide-image">
+                <div class="slide-count">#1</div>
+                <div class="slide-name">Jan Liby Dela Costa</div>
+            </li>
+            <li class="splide__slide">
+                <img src="https://avatars.githubusercontent.com/u/107909653?v=4" alt="Person 2" class="slide-image">
+                <div class="slide-count">#2</div>
+                <div class="slide-name">Jan Liby Dela Costa</div>
+            </li>
+            <li class="splide__slide">
+                <img src="https://avatars.githubusercontent.com/u/107909653?v=4" alt="Person 3" class="slide-image">
+                <div class="slide-count">#3</div>
+                <div class="slide-name">Jan Liby Dela Costa</div>
+            </li>
+        </ul>
+    </div>
+</div>
+    </div>
+  </section>
+  
+  
+  <footer style="width: 100%; background-color: #00060c;">
+  <div style="width: 100%; max-width: 1280px; padding: 16px; margin: auto;">
+    <div style="display: flex; flex-direction: column; align-items: left; justify-content: space-between; text-align: left;">
+      <h1 style="font-size: 1.5rem; color: #31ff6e; margin-bottom: 8px;font-weight: bold;
+    font-family: 'Electrolize', sans-serif;">Shoti API <span style="font-size: 10px;font-family: 'Electrolize', sans-serif;font-weight: bold;color: white;">by @libyzxy0</span></h1>
+      <ul style="display: flex; flex-wrap: wrap; justify-content: left; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 500; color: #9ca3af;">
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">About</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="https://github.com/libyzxy0/shoti/blob/main/LICENSE" style="text-decoration: none; color: inherit;">Licensing</a>
+        </li>
+        <li>
+          <a href="https://janlibydelacosta.vercel.app" style="text-decoration: none; color: inherit;">libyzxy0</a>
+        </li>
+      </ul>
+    </div>
+    <hr style="margin: 24px 0; border: 1px solid #252525;" />
+    <span style="display: block; text-align: left; font-size: 13px; color: #9ca3af;">
+      © 2025 
+      <a href="https://shoti.vercel.app/" style="text-decoration: none; color: inherit;">Shoti API</a>. All Rights Reserved.
+    </span>
+  </div>
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.4.0/dist/js/splide-extension-auto-scroll.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      new Splide('#cslider', {
+        type: 'loop',
+        perPage: 3,
+        gap: '10px',
+        pagination: false,
+        arrows: false,
+        drag: true,
+        autoScroll: {
+          speed: 1,
+        },
+      }).mount(window.splide.Extensions);
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-powershell.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
