@@ -5,7 +5,8 @@ from routes.api import api_bp
 from models.database import db
 import logging
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static',
+                      static_url_path='static' )
 app.config.from_object(Config)
 
 logging.basicConfig(level=logging.ERROR)
