@@ -1,0 +1,289 @@
+* {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: linear-gradient(to bottom right, #00060c , #001121);
+  color: white;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  position: sticky;
+  top: 0;
+  padding: 0 20px;
+  background-color: rgba(3, 7, 18, 0.3);
+  transition: background-color 0.3s;
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 50;
+}
+nav div h1 {
+  color: #31ff6e;
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.nav-item-container {
+  height: auto;
+  background-color: #00060c;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  top: -15rem;
+  transition: top 0.3s;
+  border-bottom: 1.5px solid #131313;
+  z-index: 40;
+}
+
+.nav-item-container ul {
+  list-style-type: none;
+  
+}
+
+.nav-item-container ul li {
+  margin: 15px 0;
+}
+
+.nav-item-container ul li a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-item-container ul li a ion-icon {
+  font-size: 22px;
+  margin-right: 7px;
+}
+
+.nav-item-container ul li:hover, nav ul li:hover {
+  color: #31ff6e;
+  cursor: pointer;
+}
+
+nav div ul {
+  display: none;
+}
+
+nav div button {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+nav div button ion-icon {
+  font-size: 25px;
+  color: white;
+}
+
+#hero {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 6rem);
+}
+
+#hero div {
+  margin: 0 20px;
+  margin-top: 70px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#hero div h1 {
+  color: #31ff6e;
+  font-size: 32px;
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  margin-top: 25px;
+}
+
+#hero div p {
+  margin-top: 20px;
+}
+
+#hero div p {
+  color: white;
+  font-size: 14px;
+}
+.cmd {
+  background-color: #13181d;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 6px 15px;
+}
+.cmd span {
+  font-family: "Electrolize", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.buttons-container {
+  display: flex;
+  flex-direction: row !important;
+  gap: 10px;
+}
+
+.btn-solid {
+  background-color: #31ff6e;
+  min-width: 120px;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 13px;
+  color: #00060c;
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-outline {
+  background-color: #161616;
+  min-width: 120px;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 13px;
+  color: white;
+  outline: none;
+  border: 1.5px solid #232323;
+  border-radius: 30px;
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+ion-icons {
+  color: white;
+}
+
+.scroll-down {
+  -webkit-tap-highlight-color: transparent;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 14px;
+  color: #585858;
+  animation: bounce 1.5s infinite;
+  opacity: 30;
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+#gs {
+  background-color: #00060c;
+  padding: 30px 20px;
+}
+
+
+header .hline {
+  height: 3px;
+  background-image: linear-gradient(to bottom right, #31ff6e , #067828);
+  border-radius: 20px;
+  width: 60px;
+}
+
+#gs .container {
+  margin-top: 20px;
+}
+
+header h1 {
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  color: #31ff6e;
+}
+
+#contributors {
+  min-height: 40vh;
+  background-color: #00060c;
+  padding: 30px 20px;
+}
+
+
+.splide {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.splide__slide {
+    background-image: linear-gradient(to bottom, #00060c , #00210c);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.slide-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #31ff6e;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.slide-count {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Electrolize", sans-serif;
+    color: #31ff6e;
+}
+
+.slide-name {
+    font-size: 12px;
+    color: white;
+    margin-top: 5px;
+    font-family: "Electrolize", sans-serif;
+}
+
+@media screen and (min-width: 640px) {
+  .nav-item-container {
+    display: none;
+  }
+  nav div button {
+    display: none;
+  }
+  nav div ul {
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+  }
+}

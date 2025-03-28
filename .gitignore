@@ -40,7 +40,6 @@ tests.xml
 test-results.xml
 
 # Flask static files
-static/
 
 # Other
 .gitattributes
