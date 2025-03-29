@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoti API</title><link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css">
+
+  <style>
+    pre[class*="language-"] {
+      background: #1c1c1c !important;
+      border-radius: 6px;
+      padding: 10px 10px;
+      font-size: 14px;
+      margin: 20px 0;
+    }
+    .token.keyword {
+      color: #31ff6e !important;
+    }
+    .token.property {
+      color: #31ff6e !important;
+    }
+    .token.string {
+      color: #ffa32e !important;
+    }
+    .token.function {
+      color: #d37dff !important;
+    }
+    .line-numbers .line-numbers-rows {
+      border-right: 1px solid #232323 !important;
+    }
+    .line-numbers-rows span::before {
+      color: #5e5e5e !important;
+    }
+    p {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div>
+      <h1>Shoti API</h1>
+    </div>
+    <div>
+      <button id="menu-btn">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+      
+      <ul>
+        <li><a href="/">Start</a></li>
+        <li><a href="/docs">Documentation</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+        <li><a href="/status">API Status</a></li>
+        <li><a href="/myapikey">My Apikey</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="nav-item-container" id="nav-items">
+      <ul>
+        <li><a href="/">
+          <ion-icon name="planet-sharp"></ion-icon>
+          <span>Start</span>
+        </a></li>
+        <li><a href="/docs">
+          <ion-icon name="book"></ion-icon>
+          <span>Documentation</span>
+        </a></li>
+        <li><a href="/leaderboard">
+          <ion-icon name="stats-chart"></ion-icon>
+          <span>Leaderboard</span>
+        </a></li>
+        <li><a href="/status">
+          <ion-icon name="information-circle"></ion-icon>
+          <span>API Status</span>
+        </a></li>
+        <li><a href="/myapikey">
+          <ion-icon name="key-sharp"></ion-icon>
+          <span>My Apikey</span>
+        </a></li>
+        
+      </ul>
+    </div>
+
+
+  <section id="gs">
+    <header>
+      <h1 class="titleh1">Shoti API Documentation</h1>
+      <div class="hline"></div>
+    </header>
+
+    <div class="container">
+      <p>
+        A detailed guide on using <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span>, covering getting videos, images, best practices, and integration tips for your projects.
+      </p>
+      
+      <h3 class="subtitle">Table of Contents</h3>
+      <ol style="list-style-type: none;">
+        <li style="margin: 10px 0;"><a style="color: #31ff6e;" href="/docs#installation"><span>1. </span>Installation</a></li>
+        
+        <li style="margin: 10px 0;"><a style="color: #31ff6e;" href="/docs#getting-shoti"><span>2. </span>Getting Shoti</a>
+          <li style="margin: 5px 15px;"><a style="color: #31ff6e;" href="/docs#getting-shoti"><span>2.1. </span>Video</a></li>
+          <li style="margin: 5px 15px;"><a style="color: #31ff6e;" href="/docs#getting-shoti-images"><span>2.2. </span>Images</a></li>
+        </li>
+        
+        <li style="margin: 10px 0;"><a style="color: #31ff6e;" href="/docs#adding-shoti"><span>3. </span>Adding Shoti</a></li>
+        <li style="margin: 10px 0;"><a style="color: #31ff6e;" href="/docs#rating-shoti"><span>4. </span>Rating Shoti</a></li>
+        <li style="margin: 10px 0;"><a style="color: #31ff6e;" href="/docs#getting-topusers"><span>5. </span>Getting Top Users</a></li>
+      </ol>
+      
+      <section id="installation">
+      <h3 class="subtitle">Installation</h3>
+      
+      <p>Installing Shoti API is pretty straightforward, just type these commands on your fuck*ing terminal to install Shoti API Wrapper:</p>
+      <pre><code class="language-powershell"></code>npm install shoti</pre>
+      
+      <p>Initialize Shoti API instance:</p>
+      <pre><code class="language-js">import Shoti from 'shoti';
+
+/* Initialize with API key */
+const shoti = new Shoti("YOUR-APIKEY"); //$shoti-xxxx</code></pre>
+<p>You can get your apikey <a style="color: #31ff6e" href="/myapikey">here</a>.</p>
+     </section>
+     
+      <section id="getting-shoti">
+        <h3 class="subtitle">Getting Shoti</h3>
+        <p>Getting videos on Shoti API is pretty basic 😎, just copy this codes:</p>
+        
+        <pre><code class="language-js">const data = await shoti.getShoti({ type: "video" });
+        
+/* or dont specify config, by default shoti api returns videos */
+const data = await shoti.getShoti();
+
+/* Print the result */
+console.log("Shoti Result:", data);</code></pre>
+
+<section id="getting-shoti-images">
+        <p>For getting Shoti API images:</p>
+        <pre><code class="language-js">const data = await shoti.getShoti({ type: 'image' });
+
+/* Print the result */
+console.log("Shoti Images Result:", data);</code></pre>
+</section>
+
+<p style="font-size: 13px;">
+        Shoti API response output:</span>
+
+      <pre><code class="language-json line-numbers">{
+  "code": number,
+  "result": {
+    "content": string | Array[string,...], //If the type is video, this will be string, else it will be array of string's.
+    "duration": string,
+    "region": string, //ISO 3166-1
+    "title": string,
+    "type": "video" | "image",
+    "shoti_score": number,
+    "shoti_id": string,
+    "user": {
+      "signature": string,
+      "instagram": string,
+      "twitter": string,
+      "nickname": string,
+      "username": string
+    }
+  }
+}</code></pre>
+      <section id="adding-shoti">
+        <h3 class="subtitle">Adding Shoti</h3>
+        <p><span style="background-color: #ff3144; padding: 2px; border-radius: 6px;color: black; font-size: 14px;font-family: 'Electrolize', sans-serif;
+  font-weight: bold;
+  font-style: normal;">NOTE:</span> Adding data to Shoti API database isn't available to everyone, you should request to the API administrators to promote your apikey into admin type.</p>
+  
+      <pre><code class="language-js">const sumakses = await shoti.newShoti({ 
+  url: "https://vt.tiktok.com/XxXxxxX"
+});
+
+console.log(sumakses);</code></pre>
+      </section>
+      <section id="rating-shoti">
+        <h3 class="subtitle">Rating Shoti</h3>
+        <p>This function let the user rate the quality of Shoti API output.</p>
+  
+      <pre><code class="language-js">const rate = await shoti.rateShoti({ 
+  shoti_id: "xxxxxx-xxx-xxxx",
+  isNotMaasim: true /* true or false */
+});
+
+console.log(rate);</code></pre>
+<p>If you rate this as 'not maasim' the score of the shoti will be increased by one, please don't abuse this feature because you can rate it multiple times.</p>
+<br>
+<p>Honestly rating the Shoti will help our API to produce more quality Shoti videos and images.</p>
+      </section>
+      <section id="getting-topusers">
+        <h3 class="subtitle">Getting Top Users</h3>
+        <p>This function lets you get the top 10 Shoti API users.</p>
+  
+      <pre><code class="language-js">const topUsers = await shoti.getTop();
+
+console.log(topUsers);</code></pre>
+      </section>
+      </section>
+
+    </div>
+  </section>
+  <footer style="width: 100%; background-color: #00060c;">
+  <div style="width: 100%; max-width: 1280px; padding: 16px; margin: auto;">
+    <div style="display: flex; flex-direction: column; align-items: left; justify-content: space-between; text-align: left;">
+      <h1 style="font-size: 1.5rem; color: #31ff6e; margin-bottom: 8px;font-weight: bold;
+    font-family: 'Electrolize', sans-serif;">Shoti API <span style="font-size: 10px;font-family: 'Electrolize', sans-serif;font-weight: bold;color: white;">by @libyzxy0</span></h1>
+      <ul style="display: flex; flex-wrap: wrap; justify-content: left; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 500; color: #9ca3af;">
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">About</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="https://github.com/libyzxy0/shoti/blob/main/LICENSE" style="text-decoration: none; color: inherit;">Licensing</a>
+        </li>
+        <li>
+          <a href="https://janlibydelacosta.vercel.app" style="text-decoration: none; color: inherit;">libyzxy0</a>
+        </li>
+      </ul>
+    </div>
+    <hr style="margin: 24px 0; border: 1px solid #252525;" />
+    <span style="display: block; text-align: left; font-size: 13px; color: #9ca3af;">
+      © 2025 
+      <a href="https://shoti.fbbot.org" style="text-decoration: none; color: inherit;">Shoti API</a>. All Rights Reserved.
+    </span>
+  </div>
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.4.0/dist/js/splide-extension-auto-scroll.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      new Splide('#cslider', {
+        type: 'loop',
+        perPage: 3,
+        gap: '10px',
+        pagination: false,
+        arrows: false,
+        drag: true,
+        autoScroll: {
+          speed: 1,
+        },
+      }).mount(window.splide.Extensions);
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-powershell.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

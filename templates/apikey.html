@@ -21,7 +21,7 @@
       color: #31ff6e !important;
     }
     .token.string {
-      color: white !important;
+      color: #ffa32e !important;
     }
     .line-numbers .line-numbers-rows {
       border-right: 1px solid #232323 !important;
@@ -204,12 +204,14 @@
   "error": "Please specify name of your apikey."
 }`;
       Prism.highlightElement(apikeyText)
+      return;
     }
     if (!email) {
       apikeyText.textContent = `{
   "error": "Please specify email of your apikey."
 }`;
       Prism.highlightElement(apikeyText)
+      return;
     }
 
     apikeyText.textContent = `{

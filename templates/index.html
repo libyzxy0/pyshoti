@@ -25,6 +25,12 @@
     .token.keyword {
       color: #31ff6e !important;
     }
+    .token.property {
+      color: #31ff6e !important;
+    }
+    .token.string {
+      color: #ffa32e !important;
+    }
     .token.function {
       color: #d37dff !important;
     }
@@ -116,7 +122,7 @@
 
   <section id="gs">
     <header>
-      <h1>Getting Started</h1>
+      <h1 class="titleh1">Getting Started</h1>
       <div class="hline"></div>
     </header>
 
@@ -169,14 +175,16 @@ print("Shoti Result:", data)</code></pre>
     "title": string,
     "type": "video" | "image",
     "user": {
-      "avatar": string,
+      "signature": string,
+      "instagram": string,
+      "twitter": string,
       "nickname": string,
       "username": string
     }
   }
 }</code></pre>
       <p style="font-size: 13px;">
-        That's all the basics for getting videos or images from <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span>. For more detailed documentation please <a style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;" href="/docs/installation">read here</a>.
+        That's all the basics for getting videos or images from <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span>. For more detailed documentation please <a style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;" href="/docs">read here</a>.
       </p>
     </div>
 
@@ -185,7 +193,7 @@ print("Shoti Result:", data)</code></pre>
 
   <section id="contributors">
     <header>
-      <h1>Top Shoti Contributors</h1>
+      <h1 class="titleh1">Top Shoti Contributors</h1>
       <div class="hline"></div>
     </header>
     

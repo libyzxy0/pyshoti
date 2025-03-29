@@ -6,6 +6,7 @@ from models.database import db
 import logging
 
 app = Flask(__name__, static_folder="static", static_url_path="/static")
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config.from_object(Config)
 
 logging.basicConfig(level=logging.ERROR)

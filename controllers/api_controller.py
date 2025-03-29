@@ -8,6 +8,10 @@ import uuid
 from utils.fetch_tiktok_data import fetch_tiktok_data
 import asyncio
 
+def get_shoti_db():
+    shotis = Shoti.query.all()
+    return jsonify([shoti.to_dict() for shoti in shotis])
+
 def generate_api_key():
     unique_part = uuid.uuid4().hex[:10]
     return f"$shoti-{unique_part}"
@@ -54,6 +58,8 @@ def get_shoti():
             "region": random_shoti["usr_region"],
             "type": "video" if random_shoti["is_video"] else "image",
             "content": content,
+            "shoti_score": random_shoti["shoti_score"],
+            "shoti_id": random_shoti["id"],
             "user": {
                 "instagram": random_shoti["usr_instagram"],
                 "twitter": random_shoti["usr_twitter"],
@@ -68,6 +74,11 @@ def get_shoti():
 def add_user():
     api_key = generate_api_key()
     payload = request.get_json()
+    
+    if not payload["name"]:
+      return jsonify({ "error": "Please specify the name of your apikey." }), 400
+    if not payload["email"]:
+      return jsonify({ "error": "Please specify the email of your apikey." }), 400
     try:
       new_user = User(
         name=payload["name"],
