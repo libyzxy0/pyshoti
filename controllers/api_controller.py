@@ -23,8 +23,10 @@ def get_shoti():
     if not apikey:  
         data = request.get_json(silent=True) or request.form
         apikey = data.get("apikey") if data else None
+   
         
-    print("APIKEY: " + apikey)
+    if apikey:
+      print("APIKEY: " + apikey)
     
     
     if shoti_type == "image":
