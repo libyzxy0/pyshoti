@@ -15,11 +15,17 @@ def generate_api_key():
 
 def get_shoti():
     shoti_type = request.args.get("type")
-    apikey = request.args.get("type")
+    apikey = request.args.get("apikey")
     if not shoti_type:  
         data = request.get_json(silent=True) or request.form
         shoti_type = data.get("type") if data else None
+        
+    if not apikey:  
+        data = request.get_json(silent=True) or request.form
         apikey = data.get("apikey") if data else None
+        
+    print("APIKEY: " + apikey)
+    
     
     if shoti_type == "image":
         shotis = Shoti.query.filter_by(is_video=False).all()
@@ -42,7 +48,7 @@ def get_shoti():
         "code": 200,
         "result": {
             "title": random_shoti["title"],
-            "duration": f"{random_shoti["duration"]} seconds",
+            "duration": f"{random_shoti["duration"]}",
             "region": random_shoti["usr_region"],
             "type": "video" if random_shoti["is_video"] else "image",
             "content": content,
@@ -58,8 +64,9 @@ def get_shoti():
 
 
 def add_user():
-    payload = request.get_json()
     api_key = generate_api_key()
+    payload = request.get_json()
+    print(payload + apikey)
     try:
       new_user = User(
         name=payload["name"],
