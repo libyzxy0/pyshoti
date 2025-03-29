@@ -8,6 +8,34 @@ import uuid
 from utils.fetch_tiktok_data import fetch_tiktok_data
 import asyncio
 
+def get_topusers():
+  return jsonify({"error": "Route unavailable"}), 503
+
+def rate_shoti():
+    payload = request.get_json()
+    
+    if not payload:
+        return jsonify({"error": "Missing payload!"}), 400
+    
+    if not payload.get("apikey"):
+        return jsonify({"error": "Missing apikey!"}), 401
+     
+    # Validate if the user is authenticated  
+    user = User.query.filter_by(apikey=payload["apikey"]).first()
+    
+    if not user:
+        return jsonify({"error": "Unauthorized access!"}), 401
+    
+    # Validate if the payload rate exists
+    if not payload.get("rate"):
+        return jsonify({"error": "Please specify 'rate' if its GOOD or BAD"}), 400
+    
+    # Validate the rate feedback 
+    if payload["rate"] not in ["GOOD", "BAD"]:
+        return jsonify({"error": "Please specify 'rate' if its 'GOOD' or 'BAD'"}), 400
+    
+    return jsonify({"error": "Route unavailable"}), 503
+    
 def get_shoti_db():
     shotis = Shoti.query.all()
     return jsonify([shoti.to_dict() for shoti in shotis])
@@ -15,7 +43,6 @@ def get_shoti_db():
 def generate_api_key():
     unique_part = uuid.uuid4().hex[:10]
     return f"$shoti-{unique_part}"
-
 
 def get_shoti():
     shoti_type = request.args.get("type")
@@ -27,11 +54,18 @@ def get_shoti():
     if not apikey:  
         data = request.get_json(silent=True) or request.form
         apikey = data.get("apikey") if data else None
-   
+        
+    is_using_api_key = False; 
         
     if apikey:
-      print("APIKEY: " + apikey)
-    
+      rows_updated = User.query.filter_by(apikey=apikey).update({"requests": User.requests + 1})
+      db.session.commit()
+      is_using_api_key = rows_updated > 0
+      if not rows_updated > 0:
+        return jsonify({
+          "code": 401,
+          "error": "It appears that the apikey you're using is invalid. To continue accessing the API, please ensure your API key is valid or simply leave the API key parameter blank.\n\nPlease note that leaving the apikey blank means your requests will not be tracked or updated, and you will not be eligible for API Statistics feature such as leaderboard updates."
+        }), 401
     
     if shoti_type == "image":
         shotis = Shoti.query.filter_by(is_video=False).all()
@@ -44,7 +78,6 @@ def get_shoti():
     rd_shoti = random.choice(shotis)
     random_shoti = rd_shoti.to_dict()
     
-    print("TYPEEEEE+::"+str(shoti_type))
     if shoti_type == "image":
         content = random_shoti.get("img_urls", []) 
     else:
@@ -52,6 +85,7 @@ def get_shoti():
         
     return jsonify({
         "code": 200,
+        "IS_USING_APIKEY": is_using_api_key,
         "result": {
             "title": random_shoti["title"],
             "duration": f"{random_shoti["duration"]}",

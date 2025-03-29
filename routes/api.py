@@ -1,5 +1,5 @@
 from flask import Blueprint, Response
-from controllers.api_controller import get_shoti, add_user, add_shoti, get_shoti_db
+from controllers.api_controller import get_shoti, add_user, add_shoti, get_shoti_db, rate_shoti, get_topusers
 
 api_bp = Blueprint('api', __name__)
 
@@ -29,7 +29,9 @@ def ascii_response():
                       \_\ """
     return Response(message, content_type="text/plain;")
 
-api_bp.route("/get-db", methods=["GET", "POST"])(get_shoti_db)
+api_bp.route("/get-db", methods=["GET"])(get_shoti_db)
 api_bp.route("/get-shoti", methods=["GET", "POST"])(get_shoti)
 api_bp.route("/new-user", methods=["POST"])(add_user)
 api_bp.route("/new-shoti", methods=["POST"])(add_shoti)
+api_bp.route("/rate-shoti", methods=["POST"])(rate_shoti)
+api_bp.route("/get-topusers", methods=["POST"])(get_topusers)
