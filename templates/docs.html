@@ -11,10 +11,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
 
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css">
-
   <style>
+  .subtitle {
+  font-family: "Electrolize", sans-serif;
+  font-weight: bold;
+  color: #31ff6e;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
     pre[class*="language-"] {
       background: #1c1c1c !important;
       border-radius: 6px;
@@ -240,24 +245,6 @@ console.log(topUsers);</code></pre>
 </footer>
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.4.0/dist/js/splide-extension-auto-scroll.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      new Splide('#cslider', {
-        type: 'loop',
-        perPage: 3,
-        gap: '10px',
-        pagination: false,
-        arrows: false,
-        drag: true,
-        autoScroll: {
-          speed: 1,
-        },
-      }).mount(window.splide.Extensions);
-    });
-  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
