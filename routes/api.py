@@ -17,7 +17,7 @@ def ascii_response():
          \   (   '_/         
          |  . '.             
          |      \            
-  Home for Shoti API 🌶️      
+    Shoti API is awesome! 😎 
          \  _|   \           
           \  |   |           
            '.|   |           
@@ -28,7 +28,7 @@ def ascii_response():
                     \ |      
                      \ )     
                       \_\ """
-    return Response(message, content_type="text/plain; charset=us-ascii")
+    return Response(message, content_type="text/plain;")
 
 api_bp.route("/get-shoti", methods=["GET", "POST"])(get_shoti)
 api_bp.route("/new-user", methods=["POST"])(add_user)

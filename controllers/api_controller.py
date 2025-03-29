@@ -68,7 +68,6 @@ def get_shoti():
 def add_user():
     api_key = generate_api_key()
     payload = request.get_json()
-    print(payload + api_key)
     try:
       new_user = User(
         name=payload["name"],
