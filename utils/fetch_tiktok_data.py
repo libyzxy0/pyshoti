@@ -1,6 +1,7 @@
 import requests
 import random
-import urllib
+# import urllib
+import re; 
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
@@ -12,8 +13,12 @@ def fetch_tiktok_data(short_url):
     try:
         response = requests.head(short_url, allow_redirects=True)
         redirected_url = response.url
+        
+        console.log(redirected_url);
 
-        video_id = urllib.parse.urlparse(redirected_url).path.split('/')[-1]
+        #video_id = urllib.parse.urlparse(redirected_url).path.split('/')[-1]
+        
+        video_id = re.search(r"(?<=/video/)\d{19}", redirected_url).group(0) if re.search(r"(?<=/video/)\d{19}", redirected_url) else None
 
         if not video_id:
             raise ValueError("Can't retrieve video id, try again later.")
