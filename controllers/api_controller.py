@@ -130,7 +130,7 @@ def add_user():
 async def add_shoti():
     payload = request.get_json()
     
-    if not payload["apikey"]:
+    if not payload.get("apikey"):
       return jsonify({"error": "Please specify apikey."}), 401
       
     user = User.query.filter_by(apikey=payload["apikey"]).first()
