@@ -14,7 +14,7 @@ def fetch_tiktok_data(short_url):
         response = requests.head(short_url, allow_redirects=True)
         redirected_url = response.url
         
-        console.log(redirected_url);
+        print(redirected_url)
 
         #video_id = urllib.parse.urlparse(redirected_url).path.split('/')[-1]
         
