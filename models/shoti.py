@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 
 class Shoti(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    url = db.Column(db.String(1000))
+    url = db.Column(db.String(1000), unique=True)
     img_urls = db.Column(JSONB)
     title = db.Column(db.String(1000))
     duration = db.Column(db.String(20))

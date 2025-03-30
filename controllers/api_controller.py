@@ -177,8 +177,6 @@ async def add_shoti():
         )
         db.session.add(new_shoti)
         db.session.commit()
-
-        print("[DONE]: SHOTI ADDED TO DATABASE!")
         
         return jsonify({"status": "ok", "added_url": url, "added_by": user.to_dict()["name"]})
     

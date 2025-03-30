@@ -15,7 +15,8 @@ def fetch_tiktok_data(short_url):
 
         video_id = urllib.parse.urlparse(redirected_url).path.split('/')[-1]
 
-        print("VIDEO ID:"+video_id)
+        if not video_id:
+            raise ValueError("Can't retrieve video id, try again later.")
 
         random_user_agent = random.choice(USER_AGENTS)
         api_url = f"https://api22-normal-c-alisg.tiktokv.com/aweme/v1/feed/?aweme_id={video_id}&iid=7318518857994389254&device_id=7318517321748022790&channel=googleplay&app_name="
