@@ -2,6 +2,7 @@ from flask import jsonify, request
 from models.database import db
 from models.user import User
 from models.shoti import Shoti
+from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 import random
 import uuid
@@ -9,7 +10,13 @@ from utils.fetch_tiktok_data import fetch_tiktok_data
 import asyncio
 
 def get_topusers():
-  return jsonify({"error": "Route unavailable"}), 503
+  users = User.query.with_entities(
+    User.id, User.name, User.requests, User.is_adder).order_by(desc(User.requests)).all()
+  top_users = [
+    {"id": u.id, "name": u.name, "requests": u.requests, "is_adder": u.is_adder}
+    for u in users
+  ]
+  return jsonify(top_users)
 
 def rate_shoti():
     payload = request.get_json()
@@ -33,8 +40,24 @@ def rate_shoti():
     # Validate the rate feedback 
     if payload["rate"] not in ["GOOD", "BAD"]:
         return jsonify({"error": "Please specify 'rate' if its 'GOOD' or 'BAD'"}), 400
+        
+    if not payload.get("shoti_id"):
+        return jsonify({"error": "Please specify 'shoti_id'"}), 400
+        
+    print(payload.get("rate"))
+    print(payload.get("shoti_id"))
     
-    return jsonify({"error": "Route unavailable"}), 503
+    score_change = -1 if payload.get("rate") == "GOOD" else 1 if payload.get("rate") == "BAD" else 0
+    if score_change != 0:
+      rows_updated = Shoti.query.filter_by(id=payload.get("shoti_id")).update({
+        "shoti_score": Shoti.shoti_score + score_change
+      })
+      db.session.commit()
+      
+      if not rows_updated > 0:
+        return jsonify({ "error": "Failed to rate shoti", code: 400 }), 400
+      
+      return jsonify({ "success": rows_updated > 0, "rate_type": payload.get("rate") }), 200
     
 def get_shoti_db():
     shotis = Shoti.query.all()
