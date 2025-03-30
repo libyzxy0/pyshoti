@@ -45,16 +45,17 @@ def generate_api_key():
     return f"$shoti-{unique_part}"
 
 def get_shoti():
-    shoti_type = request.args.get("type")
-    apikey = request.args.get("apikey")
-    if not shoti_type:  
+    if request.method == "GET":
+        shoti_type = request.args.get("type")
+        apikey = request.args.get("apikey")
+    elif request.method == "POST":
         data = request.get_json(silent=True) or request.form
-        shoti_type = data.get("type") if data else None
-        
-    if not apikey:  
-        data = request.get_json(silent=True) or request.form
-        apikey = data.get("apikey") if data else None
-        
+        shoti_type = data.get("type")
+        apikey = data.get("apikey")
+    else:
+        shoti_type = None
+        apikey = None
+
     is_using_api_key = False; 
         
     if apikey:
@@ -128,7 +129,10 @@ def add_user():
 
 async def add_shoti():
     payload = request.get_json()
-
+    
+    if not payload["apikey"]:
+      return jsonify({"error": "Please specify apikey."}), 401
+      
     user = User.query.filter_by(apikey=payload["apikey"]).first()
     if not user or not user.to_dict().get("is_adder"):
         return jsonify({"error": "Unauthorized adder"}), 401
