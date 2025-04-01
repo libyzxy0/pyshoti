@@ -14,13 +14,13 @@ def fetch_tiktok_data(short_url):
         response = requests.head(short_url, allow_redirects=True)
         redirected_url = response.url
         
-        print(redirected_url)
-        
         video_id = re.search(r"(?<=/(?:video|photo)/)\d{19}", redirected_url).group(0) if re.search(r"(?<=/(?:video|photo)/)\d{19}", redirected_url) else None
 
         if not video_id:
             raise ValueError("Can't retrieve video id, try again later.")
-
+            
+        print("VIDEO ID » " + video_id)
+        
         random_user_agent = random.choice(USER_AGENTS)
         api_url = f"https://api22-normal-c-alisg.tiktokv.com/aweme/v1/feed/?aweme_id={video_id}&iid=7318518857994389254&device_id=7318517321748022790&channel=googleplay&app_name="
         headers = {"User-Agent": random_user_agent}
@@ -31,11 +31,14 @@ def fetch_tiktok_data(short_url):
         aweme = data.get("aweme_list", [{}])[0]
         if not aweme:
             raise ValueError("Video data not found")
+            
+        print("CONTENT TYPE » " + aweme.get("content_type"))
 
+        
         return {
-            "video_url": aweme.get("video", {}).get("play_addr", {}).get("url_list", [None, None, None])[2],
+            "video_url": aweme.get("video", {}).get("play_addr", {}).get("url_list", [None, None, None])[2] if aweme.get("content_type") == "video" else None,
             "image_urls": [
-                img.get("display_image", {}).get("url_list", [None, None])[1]
+                img.get("display_image", {}).get("url_list", [None, None])[0]
                 for img in aweme.get("image_post_info", {}).get("images", [])
             ] if aweme.get("content_type") == "multi_photo" else [],
             "title": aweme.get("desc"),
