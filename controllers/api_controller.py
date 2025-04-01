@@ -179,7 +179,7 @@ async def add_shoti():
     signature = video_data.get("user", {}).get("signature", "")
     twitter = video_data.get("user", {}).get("twitter", "")
     instagram = video_data.get("user", {}).get("instagram", "")
-    username = video_data.get("user", {}).get("nickname", "Unknown")
+    username = video_data.get("user", {}).get("username", "Unknown")
     is_video = video_data.get('content_type') == 'video'
 
     
