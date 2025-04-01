@@ -15,10 +15,8 @@ def fetch_tiktok_data(short_url):
         redirected_url = response.url
         
         print(redirected_url)
-
-        #video_id = urllib.parse.urlparse(redirected_url).path.split('/')[-1]
         
-        video_id = re.search(r"(?<=/video/)\d{19}", redirected_url).group(0) if re.search(r"(?<=/video/)\d{19}", redirected_url) else None
+        video_id = re.search(r"(?<=/(?:video|photo)/)\d{19}", redirected_url).group(0) if re.search(r"(?<=/(?:video|photo)/)\d{19}", redirected_url) else None
 
         if not video_id:
             raise ValueError("Can't retrieve video id, try again later.")
