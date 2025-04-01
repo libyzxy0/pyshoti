@@ -7,7 +7,79 @@ from sqlalchemy.exc import IntegrityError
 import random
 import uuid
 from utils.fetch_tiktok_data import fetch_tiktok_data
-import asyncio
+import os
+
+from utils.telegram_notify_bot import NotifierBot
+
+notifier_bot = NotifierBot(os.getenv("TELEGRAM_NOTIFIER_BOT_TOKEN", None))
+
+def get_shoti():
+    try:
+        if request.method == "GET":
+            shoti_type = request.args.get("type")
+            apikey = request.args.get("apikey")
+        elif request.method == "POST":
+            data = request.get_json(silent=True) or request.form
+            shoti_type = data.get("type")
+            apikey = data.get("apikey")
+        else:
+            return jsonify({"code": 405, "error": "Method not allowed"}), 405
+
+        is_using_api_key = False  
+
+        if apikey:
+            rows_updated = User.query.filter_by(apikey=apikey).update({"requests": User.requests + 1})
+            db.session.commit()
+            is_using_api_key = rows_updated > 0
+
+            if not is_using_api_key:
+                return jsonify({
+                    "code": 401,
+                    "error": "Invalid API key. Either provide a valid key or leave it blank."
+                }), 401
+
+        if shoti_type == "image":
+            shotis = Shoti.query.filter_by(is_video=False).all()
+        else:
+            shotis = Shoti.query.filter_by(is_video=True).all()
+
+        if not shotis:
+            return jsonify({"code": 404, "error": "No shotis found"}), 404
+
+        rd_shoti = random.choice(shotis)
+        random_shoti = rd_shoti.to_dict()
+
+        content = random_shoti.get("img_urls", []) if not random_shoti.get("is_video") else random_shoti.get("url", "")
+
+        return jsonify({
+            "code": 200,
+            "IS_USING_APIKEY": is_using_api_key,
+            "result": {
+                "title": random_shoti.get("title", "Unknown"),
+                "duration": str(random_shoti.get("duration", "N/A")),
+                "region": random_shoti.get("usr_region", "Unknown"),
+                "type": "video" if random_shoti.get("is_video") else "image",
+                "content": content,
+                "shoti_score": random_shoti.get("shoti_score", 0),
+                "shoti_id": random_shoti.get("id", 0),
+                "user": {
+                    "instagram": random_shoti.get("usr_instagram", ""),
+                    "twitter": random_shoti.get("usr_twitter", ""),
+                    "nickname": random_shoti.get("usr_nickname", ""),
+                    "username": random_shoti.get("usr_username", ""),
+                    "signature": random_shoti.get("usr_signature", ""),
+                }
+            }
+        }), 200
+
+    except Exception as e:
+        print(f"Error in get_shoti(): {e}")
+        notifier_bot.sendUpdate(f"Get Shoti Error: {str(e)}", None)
+        return jsonify({
+            "code": 500,
+            "error": "An unexpected error occurred.",
+            "details": str(e)
+        }), 500
 
 def get_topusers():
   users = User.query.with_entities(
@@ -67,68 +139,6 @@ def generate_api_key():
     unique_part = uuid.uuid4().hex[:10]
     return f"$shoti-{unique_part}"
 
-def get_shoti():
-    if request.method == "GET":
-        shoti_type = request.args.get("type")
-        apikey = request.args.get("apikey")
-    elif request.method == "POST":
-        data = request.get_json(silent=True) or request.form
-        shoti_type = data.get("type")
-        apikey = data.get("apikey")
-    else:
-        shoti_type = None
-        apikey = None
-
-    is_using_api_key = False; 
-        
-    if apikey:
-      rows_updated = User.query.filter_by(apikey=apikey).update({"requests": User.requests + 1})
-      db.session.commit()
-      is_using_api_key = rows_updated > 0
-      if not rows_updated > 0:
-        return jsonify({
-          "code": 401,
-          "error": "It appears that the apikey you're using is invalid. To continue accessing the API, please ensure your API key is valid or simply leave the API key parameter blank.\n\nPlease note that leaving the apikey blank means your requests will not be tracked or updated, and you will not be eligible for API Statistics feature such as leaderboard updates."
-        }), 401
-    
-    if shoti_type == "image":
-        shotis = Shoti.query.filter_by(is_video=False).all()
-    else:
-        shotis = Shoti.query.filter_by(is_video=True).all()
-    
-    if not shotis:
-        return jsonify({"error": "No shotis found"}), 404
-    
-    rd_shoti = random.choice(shotis)
-    random_shoti = rd_shoti.to_dict()
-    
-    if shoti_type == "image":
-        content = random_shoti.get("img_urls", []) 
-    else:
-        content = random_shoti.get("url", "")
-        
-    return jsonify({
-        "code": 200,
-        "IS_USING_APIKEY": is_using_api_key,
-        "result": {
-            "title": random_shoti["title"],
-            "duration": f"{random_shoti["duration"]}",
-            "region": random_shoti["usr_region"],
-            "type": "video" if random_shoti["is_video"] else "image",
-            "content": content,
-            "shoti_score": random_shoti["shoti_score"],
-            "shoti_id": random_shoti["id"],
-            "user": {
-                "instagram": random_shoti["usr_instagram"],
-                "twitter": random_shoti["usr_twitter"],
-                "nickname": random_shoti["usr_nickname"],
-                "username": random_shoti["usr_username"],
-                "signature": random_shoti["usr_signature"]
-            }
-        }
-    }), 200
-
-
 def add_user():
     api_key = generate_api_key()
     payload = request.get_json()
@@ -145,6 +155,9 @@ def add_user():
       )
       db.session.add(new_user)
       db.session.commit()
+      
+      notifier_bot.sendUpdate(f"New User: {payload.get('name')}", None)
+      
       return jsonify({"status": "ok", "name": payload["name"],"email": payload["email"],"apikey": api_key})
     except IntegrityError:
       db.session.rollback()
@@ -201,8 +214,13 @@ async def add_shoti():
         db.session.add(new_shoti)
         db.session.commit()
         
-        return jsonify({"status": "ok", "added_url": url, "added_by": user.to_dict()["name"]})
+        print(new_shoti.id)
+        
+        notifier_bot.sendUpdate(f"{user.to_dict()["name"]} commits a video\n{new_shoti.id}\n\nTiktok: {payload.get("url")}\nTitle: {title}\nUseranme: @{username}\nName: {nickname}", url)
+        
+        return jsonify({ "tiktok_url": payload.get("url"), "video_id": video_data.get("aweme_id"), "added_url": url, "added_by": user.to_dict()["name"]})
     
     except Exception as e:
         db.session.rollback()
+        notifier_bot.sendUpdate(f"AddShoti | Database error: {str(e)}", None)
         return jsonify({"error": "Database error", "details": str(e)}), 500
