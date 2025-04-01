@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoti API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+
+  <style>
+    pre[class*="language-"] {
+      border-radius: 6px;
+      padding: 10px 10px;
+      font-size: 14px;
+    }
+    .token.property {
+      color: #31ff6e !important;
+    }
+    .token.string {
+      color: #ffa32e !important;
+    }
+    .line-numbers .line-numbers-rows {
+      border-right: 1px solid #232323 !important;
+    }
+    .line-numbers-rows span::before {
+      color: #5e5e5e !important;
+    }
+  </style>
+  <style>
+    .header {
+      text-align: center;
+      margin: 40px 20px;
+    }
+    .apikey-title {
+      color: #31ff6e;
+      font-family: 'Electrolize', sans-serif;
+      font-weight: bold;
+      font-style: normal;
+      font-size: 1.8rem;
+    }
+    .apikey-container p {
+      max-width: 600px;
+      margin: 10px auto;
+      font-size: 1rem;
+      color: #ccc;
+    }
+    .apikey {
+      margin: 20px;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 400px;
+    }
+    input, textarea {
+      border: 1px solid #181818;
+      background-color: #101010;
+      padding: 12px;
+      border-radius: 6px;
+      color: white;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input:focus {
+      outline: none;
+    }
+    pre {
+      opacity: 0.7;
+      width: 100%;
+      max-width: 400px;
+      background-color: #101010 !important;
+      border: 1px solid #181818;
+      margin-top: 20px !important;
+    }
+    .btn-submit {
+      background-color: #31ff6e;
+      color: black;
+      font-weight: bold;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    .btn-submit:hover {
+      background-color: #28cc5c;
+    }
+    .hidden {
+      display: none;
+    }
+    .key-status {
+      color: #31ff6e;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .admin-notice {
+      background-color: #181818;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    @media screen and (min-width: 640px) {
+      .apikey {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+      }
+      pre {
+        margin-top: 0px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div>
+      <h1>Shoti API</h1>
+    </div>
+    <div>
+      <button id="menu-btn">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+      <ul>
+        <li><a href="/">Start</a></li>
+        <li><a href="/docs">Documentation</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+        <li><a href="/status">API Status</a></li>
+        <li><a href="/myapikey">My Apikey</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="nav-item-container" id="nav-items">
+    <ul>
+      <li><a href="/">
+        <ion-icon name="planet-sharp"></ion-icon>
+        <span>Start</span>
+      </a></li>
+      <li><a href="/docs">
+        <ion-icon name="book"></ion-icon>
+        <span>Documentation</span>
+      </a></li>
+      <li><a href="/leaderboard">
+        <ion-icon name="stats-chart"></ion-icon>
+        <span>Leaderboard</span>
+      </a></li>
+      <li><a href="/status">
+        <ion-icon name="information-circle"></ion-icon>
+        <span>API Status</span>
+      </a></li>
+      <li><a href="/myapikey">
+        <ion-icon name="key-sharp"></ion-icon>
+        <span>My Apikey</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <div class="header">
+    <h1 class="apikey-title">SHOTI API | New</h1>
+  </div>
+
+  <section class="apikey">
+    <div class="form-container">
+      <div id="apikey-container">
+        <div class="key-status" id="key-status"></div>
+        <input id="apikey-input" type="text" placeholder="Enter your API key">
+        <button id="save-apikey" class="btn-submit">Save API Key</button>
+      </div>
+      
+      <div id="url-container" class="hidden">
+        <div class="key-status" id="stored-key-status"></div>
+        <div id="admin-notice" class="admin-notice hidden">
+          ⚠️ Note: You cannot add videos without admin permission or role admin.
+        </div>
+        <input id="url-input" type="text" placeholder="Enter URL">
+        <button id="submit-url" class="btn-submit">Submit</button>
+        <button id="change-key" class="btn-submit" style="background-color: #ff5f5f;">Change API Key</button>
+      </div>
+    </div>
+    
+    <pre><code class="language-json" id="render-result">Results will appear here.</code></pre>
+  </section>
+
+  <footer style="width: 100%; background-color: #00060c;">
+    <div style="width: 100%; max-width: 1280px; padding: 16px; margin: auto;">
+      <div style="display: flex; flex-direction: column; align-items: left; justify-content: space-between; text-align: left;">
+        <h1 style="font-size: 1.5rem; color: #31ff6e; margin-bottom: 8px;font-weight: bold;
+          font-family: 'Electrolize', sans-serif;">Shoti API <span style="font-size: 10px;font-family: 'Electrolize', sans-serif;font-weight: bold;color: white;">by @libyzxy0</span></h1>
+        <ul style="display: flex; flex-wrap: wrap; justify-content: left; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 500; color: #9ca3af;">
+          <li style="margin-right: 14px;">
+            <a href="#" style="text-decoration: none; color: inherit;">About</a>
+          </li>
+          <li style="margin-right: 14px;">
+            <a href="#" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+          </li>
+          <li style="margin-right: 14px;">
+            <a href="https://github.com/libyzxy0/shoti/blob/main/LICENSE" style="text-decoration: none; color: inherit;">Licensing</a>
+          </li>
+          <li>
+            <a href="https://janlibydelacosta.vercel.app" style="text-decoration: none; color: inherit;">libyzxy0</a>
+          </li>
+        </ul>
+      </div>
+      <hr style="margin: 24px 0; border: 1px solid #252525;" />
+    <span style="display: block; text-align: left; font-size: 13px; color: #9ca3af;">
+      © 2025
+      <a href="https://shoti.fbbot.org" style="text-decoration: none; color: inherit;">Shoti API</a>. All Rights Reserved.
+    </span>
+  </div>
+</footer>
+
+<script>
+  const resultOutput = document.getElementById('render-result');
+  const apikeyContainer = document.getElementById('apikey-container');
+  const urlContainer = document.getElementById('url-container');
+  const apikeyInput = document.getElementById('apikey-input');
+  const saveApikeyBtn = document.getElementById('save-apikey');
+  const keyStatus = document.getElementById('key-status');
+  const storedKeyStatus = document.getElementById('stored-key-status');
+  const urlInput = document.getElementById('url-input');
+  const submitUrlBtn = document.getElementById('submit-url');
+  const changeKeyBtn = document.getElementById('change-key');
+  const adminNotice = document.getElementById('admin-notice');
+
+  document.addEventListener('DOMContentLoaded', checkApiKey);
+
+  function checkApiKey() {
+    const storedApiKey = localStorage.getItem('shotiApiKey');
+    
+    if (storedApiKey) {
+      apikeyContainer.classList.add('hidden');
+      urlContainer.classList.remove('hidden');
+      storedKeyStatus.textContent = `API Key: ${maskApiKey(storedApiKey)}`;
+      // Always show the admin notice when API key is stored
+      adminNotice.classList.remove('hidden');
+    } else {
+      apikeyContainer.classList.remove('hidden');
+      urlContainer.classList.add('hidden');
+      keyStatus.textContent = "Please enter your API key to continue";
+    }
+  }
+  
+  function maskApiKey(apiKey) {
+    if (apiKey.length <= 8) return "****";
+    return apiKey.substring(0, 4) + "..." + apiKey.substring(apiKey.length - 4);
+  }
+  
+  saveApikeyBtn.addEventListener('click', () => {
+    const apiKey = apikeyInput.value.trim();
+    
+    if (!apiKey) {
+      resultOutput.textContent = `{
+  "error": "Please enter a valid API key."
+}`;
+      Prism.highlightElement(resultOutput);
+      return;
+    }
+    
+    localStorage.setItem('shotiApiKey', apiKey);
+    
+    apikeyContainer.classList.add('hidden');
+    urlContainer.classList.remove('hidden');
+    storedKeyStatus.textContent = `API Key: ${maskApiKey(apiKey)}`;
+    adminNotice.classList.remove('hidden');
+    
+    resultOutput.textContent = `{
+  "status": "API key saved successfully"
+}`;
+    Prism.highlightElement(resultOutput);
+  });
+  
+  changeKeyBtn.addEventListener('click', () => {
+    apikeyContainer.classList.remove('hidden');
+    urlContainer.classList.add('hidden');
+    keyStatus.textContent = "Enter a new API key";
+  });
+  
+  submitUrlBtn.addEventListener('click', async () => {
+    const url = urlInput.value.trim();
+    const apiKey = localStorage.getItem('shotiApiKey');
+    
+    if (!url) {
+      resultOutput.textContent = `{
+  "error": "Please enter a valid URL."
+}`;
+      Prism.highlightElement(resultOutput);
+      return;
+    }
+    
+    if (!apiKey) {
+      apikeyContainer.classList.remove('hidden');
+      urlContainer.classList.add('hidden');
+      keyStatus.textContent = "Please enter your API key to continue";
+      
+      resultOutput.textContent = `{
+  "error": "API key not found. Please enter your API key."
+}`;
+      Prism.highlightElement(resultOutput);
+      return;
+    }
+    
+    resultOutput.textContent = `{
+  "status": "Processing request, please wait..."
+}`;
+    Prism.highlightElement(resultOutput);
+    
+    try {
+      const response = await fetch("/api/new-shoti", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          apikey: apiKey,
+          url: url
+        }),
+      });
+      
+      if (!response.ok) {
+        let errorMessage = "Something went wrong.";
+        if (response.status === 401) {
+          errorMessage = "Invalid API key. Please enter a valid key.";
+          localStorage.removeItem('shotiApiKey');
+          apikeyContainer.classList.remove('hidden');
+          urlContainer.classList.add('hidden');
+          keyStatus.textContent = "Please enter a valid API key";
+        } else if (response.status === 403) {
+          errorMessage = "Your API key does not have admin permission or role admin. You cannot add videos.";
+        }
+        
+        resultOutput.textContent = `{
+  "error": "${errorMessage}"
+}`;
+        Prism.highlightElement(resultOutput);
+        return;
+      }
+      
+      const data = await response.json();
+      resultOutput.textContent = JSON.stringify(data, null, 2);
+      Prism.highlightElement(resultOutput);
+      urlInput.value = "";
+      
+    } catch (error) {
+      console.error("Error:", error);
+      resultOutput.textContent = `{
+  "error": "An error occurred while processing your request."
+}`;
+      Prism.highlightElement(resultOutput);
+    }
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
