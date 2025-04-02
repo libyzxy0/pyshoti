@@ -6,6 +6,7 @@ from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 import random
 import uuid
+from utils.image_cdn import upload_image
 from utils.fetch_tiktok_data import fetch_tiktok_data
 import os
 
@@ -172,14 +173,17 @@ async def add_shoti():
     
     if not video_data:
         return jsonify({"error": "Failed to fetch video data"}), 400
-    
-    if (video_data.get("content_type") == "multi_photo"):
-      return jsonify({"error": "Image uploading is not available yet."}), 403
       
     url = video_data.get("video_url")
 
-    img_urls = video_data.get("image_urls")
-
+    img_urls = upload_image(video_data.get("image_urls")) if video_data.get("content_type") == "multi_photo" else []
+    
+    if (video_data.get("content_type") == "multi_photo") and not img_urls:
+      return jsonify({"error": "Failed to add shoti 'multi_photo'"}), 400
+      
+    if(img_urls):
+      print("Have an image!")
+      
     duration = video_data.get("duration")
     title = video_data.get("title", "💙🫣")
     region = video_data.get("user", {}).get("region", "Unknown")
@@ -209,17 +213,18 @@ async def add_shoti():
         db.session.add(new_shoti)
         db.session.commit()
         
-        print(new_shoti.id)
+        added_urls = [url for url in img_urls] if video_data.get("content_type") == "multi_photo" else url
         
         notifier_bot.sendUpdate(
-          f"{user.to_dict()['name']} commits a video\n"
-          f"{new_shoti.id}\n\n"
+          f"{user.to_dict()['name']} commits a shoti\n"
+          f"{new_shoti.id}\n"
+          f"Content Type: {video_data.get("content_type")}\n\n"
           f"🎥 Tiktok: {payload.get('url')}\n"
           f"👤 Username: @{username}\n"
           f"📝 Name: {nickname}",
-          url)
-        
-        return jsonify({ "tiktok_url": payload.get("url"), "video_id": video_data.get("aweme_id"), "added_url": url, "added_by": user.to_dict()["name"]})
+          added_urls)
+          
+        return jsonify({ "tiktok_url": payload.get("url"), "video_id": video_data.get("aweme_id"), "added_url": added_urls, "added_by": user.to_dict()["name"], "content_type": video_data.get("content_type") })
     
     except Exception as e:
         db.session.rollback()

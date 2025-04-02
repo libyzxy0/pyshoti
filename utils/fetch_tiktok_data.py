@@ -39,7 +39,7 @@ def fetch_tiktok_data(short_url):
             "aweme_id": aweme.get("aweme_id"),
             "video_url": aweme.get("video", {}).get("play_addr", {}).get("url_list", [None, None, None])[2] if aweme.get("content_type") == "video" else None,
             "image_urls": [
-                img.get("display_image", {}).get("url_list", [None, None])[0]
+                img.get("display_image", {}).get("url_list", [None, None])[1]
                 for img in aweme.get("image_post_info", {}).get("images", [])
             ] if aweme.get("content_type") == "multi_photo" else [],
             "title": aweme.get("desc"),
