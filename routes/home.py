@@ -1,9 +1,17 @@
 from flask import Blueprint
 from flask import render_template
+from flask import request
+import os
+
+from utils.telegram_notify_bot import NotifierBot
+
+notifier_bot = NotifierBot(os.getenv("TELEGRAM_NOTIFIER_BOT_TOKEN", None))
 
 home_bp = Blueprint('home', __name__)
 
 def home():
+  visitor_ip = request.headers.get("X-Forwarded-For", request.headers.get("CF-Connecting-IP", request.remote_addr))
+  notifier_bot.sendUpdate(f"Someone is viewing our website\nIP Address: {visitor_ip}", None)
   return render_template("index.html")
 def docs():
   return render_template("docs.html")

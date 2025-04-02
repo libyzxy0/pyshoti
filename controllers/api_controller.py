@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, after_this_request
 from models.database import db
 from models.user import User
 from models.shoti import Shoti
@@ -50,7 +50,7 @@ def get_shoti():
         random_shoti = rd_shoti.to_dict()
 
         content = random_shoti.get("img_urls", []) if not random_shoti.get("is_video") else random_shoti.get("url", "")
-
+       
         return jsonify({
             "code": 200,
             "IS_USING_APIKEY": is_using_api_key,
@@ -71,14 +71,12 @@ def get_shoti():
                 }
             }
         }), 200
-
     except Exception as e:
         print(f"Error in get_shoti(): {e}")
         notifier_bot.sendUpdate(f"Get Shoti Error: {str(e)}", None)
         return jsonify({
             "code": 500,
-            "error": "An unexpected error occurred.",
-            "details": str(e)
+            "error": "An unexpected error occurred."
         }), 500
 
 def get_topusers():
@@ -99,17 +97,14 @@ def rate_shoti():
     if not payload.get("apikey"):
         return jsonify({"error": "Missing apikey!"}), 401
      
-    # Validate if the user is authenticated  
     user = User.query.filter_by(apikey=payload["apikey"]).first()
     
     if not user:
         return jsonify({"error": "Unauthorized access!"}), 401
     
-    # Validate if the payload rate exists
     if not payload.get("rate"):
         return jsonify({"error": "Please specify 'rate' if its GOOD or BAD"}), 400
     
-    # Validate the rate feedback 
     if payload["rate"] not in ["GOOD", "BAD"]:
         return jsonify({"error": "Please specify 'rate' if its 'GOOD' or 'BAD'"}), 400
         
@@ -216,11 +211,17 @@ async def add_shoti():
         
         print(new_shoti.id)
         
-        notifier_bot.sendUpdate(f"{user.to_dict()["name"]} commits a video\n{new_shoti.id}\n\nTiktok: {payload.get("url")}\nTitle: {title}\nUseranme: @{username}\nName: {nickname}", url)
+        notifier_bot.sendUpdate(
+          f"{user.to_dict()['name']} commits a video\n"
+          f"{new_shoti.id}\n\n"
+          f"🎥 Tiktok: {payload.get('url')}\n"
+          f"👤 Username: @{username}\n"
+          f"📝 Name: {nickname}",
+          url)
         
         return jsonify({ "tiktok_url": payload.get("url"), "video_id": video_data.get("aweme_id"), "added_url": url, "added_by": user.to_dict()["name"]})
     
     except Exception as e:
         db.session.rollback()
-        notifier_bot.sendUpdate(f"AddShoti | Database error: {str(e)}", None)
+        notifier_bot.sendUpdate(f"Failed to add Shoti | Database error: {str(e)}", None)
         return jsonify({"error": "Database error", "details": str(e)}), 500

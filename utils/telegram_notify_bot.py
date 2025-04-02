@@ -11,10 +11,10 @@ class NotifierBot:
             if not attachment_url:
                 payload = {
                     "chat_id": "5544405507",
-                    "parse_mode": "HTML",
                     "text": text
                 }
                 requests.post(self.base_url + "/sendMessage", json=payload)
+                print("Notified!")
             else:
                 payload = {
                     "chat_id": "5544405507",
@@ -22,6 +22,7 @@ class NotifierBot:
                     "caption": text
                 }
                 requests.post(self.base_url + "/sendVideo", json=payload)
+                print("Notified!")
 
         thread = threading.Thread(target=send_request)
         thread.daemon = True
