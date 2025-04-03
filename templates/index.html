@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Shoti API">
   <meta property="og:description" content="Shoti API documentation website.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29kZXxlbnwwfHwwfHx8MA%3D%3D">
+  <meta property="og:image" content="https://shoti.fbbot.org/static/cover_shoti.png">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <title>Shoti API</title><link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -99,7 +100,7 @@
 
       <h1>High Quality Shoti API Videos and Images.</h1>
       <p>
-        Shoti API sends random beautiful, cute, and hot girl thirst-trap videos & images from TikTok, with a collection of over 300+ shoti's.
+        Shoti API sends random beautiful, cute, and hot girl thirst-trap videos & images from TikTok, with a collection of over 350+ shoti's.
       </p>
     </div>
     <div class="buttons-container">
@@ -130,8 +131,8 @@
     </header>
 
     <div class="container">
-      <p style="font-size: 13px;">
-        To use <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span> you must install this package.</span>
+      <p>
+        To use <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span> you must install this package.</p>
 
       <pre><code class="language-powershell line-numbers"># for nodejs
 npm install shoti
@@ -139,8 +140,8 @@ npm install shoti
 # for python
 pip install shoti</code></pre>
 
-      <p style="font-size: 13px;">
-        Using Shoti API JavaScript wrapper:</span>
+      <p>
+        Using Shoti API JavaScript wrapper:</p>
 
       <pre><code class="language-js line-numbers">import Shoti from 'shoti';
 
@@ -153,8 +154,8 @@ const data = await shoti.getShoti({ type: "image|video" });
 /* Print the result */
 console.log("Shoti Result:", data);
       </code></pre>
-      <p style="font-size: 13px;">
-        Using Shoti API Python wrapper:</span>
+      <p>
+        Using Shoti API Python wrapper:</p>
 
       <pre class="language-python line-numbers"><code>from shoti import Shoti
 
@@ -166,8 +167,8 @@ data = shoti.get_shoti(type="image|video")
 
 # Print the result
 print("Shoti Result:", data)</code></pre>
-      <p style="font-size: 13px;">
-        Shoti API response output:</span>
+      <p>
+        Shoti API response output:</p>
 
       <pre><code class="language-json line-numbers">{
   "code": number,
@@ -186,12 +187,10 @@ print("Shoti Result:", data)</code></pre>
     }
   }
 }</code></pre>
-      <p style="font-size: 13px;">
+      <p>
         That's all the basics for getting videos or images from <span style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;">Shoti API</span>. For more detailed documentation please <a style="color: #31ff6e;font-family: 'Electrolize', sans-serif;color: #31ff6e;" href="/docs">read here</a>.
       </p>
     </div>
-
-
   </section>
 
   <section id="contributors">
@@ -200,26 +199,31 @@ print("Shoti Result:", data)</code></pre>
       <div class="hline"></div>
     </header>
     
-     <p style="font-size: 13px;margin-top: 10px;">
-        Thanks to all of this top 10 people's for adding videos and images to our Shoti API.
+     <p style="margin-top: 10px;">
+        Thanks to all of this people's for contributing to the project Shoti API.
     <div>
       <div class="splide" id="cslider">
     <div class="splide__track">
         <ul class="splide__list">
             <li class="splide__slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVa6Na6Vly4eFRxLSInDxc8bMX3iEtr0UIA2OzIg5lM2yvwPhhzMlxSC14&s=10" alt="Person 1" class="slide-image">
+                <img src="https://avatars.githubusercontent.com/u/107909653?v=4" alt="Person 1" class="slide-image">
                 <div class="slide-count">#1</div>
                 <div class="slide-name">Jan Liby Dela Costa</div>
             </li>
             <li class="splide__slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVa6Na6Vly4eFRxLSInDxc8bMX3iEtr0UIA2OzIg5lM2yvwPhhzMlxSC14&s=10" alt="Person 2" class="slide-image">
+                <img src="https://graph.facebook.com/100054706067959/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" alt="Person 2" class="slide-image">
                 <div class="slide-count">#2</div>
-                <div class="slide-name">No Name</div>
+                <div class="slide-name">Kenlie Navacilla Jugarap</div>
             </li>
             <li class="splide__slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVa6Na6Vly4eFRxLSInDxc8bMX3iEtr0UIA2OzIg5lM2yvwPhhzMlxSC14&s=10" alt="Person 3" class="slide-image">
+                <img src="https://i.imgur.com/MUBHocN.jpeg" class="slide-image">
                 <div class="slide-count">#3</div>
-                <div class="slide-name">No Name</div>
+                <div class="slide-name">Eugene Augilar</div>
+            </li>
+            <li class="splide__slide">
+                <img src="https://graph.facebook.com/100037363620456/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" alt="Person 4" class="slide-image">
+                <div class="slide-count">#4</div>
+                <div class="slide-name">Bundas Andrian</div>
             </li>
         </ul>
     </div>
