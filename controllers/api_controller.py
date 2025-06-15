@@ -82,7 +82,7 @@ def get_shoti():
 
 def get_topusers():
   users = User.query.with_entities(
-    User.id, User.name, User.requests, User.is_adder).order_by(desc(User.requests)).all()
+    User.id, User.name, User.requests, User.is_adder).filter(User.requests > 0).order_by(desc(User.requests)).all()
   top_users = [
     {"id": u.id, "name": u.name, "requests": u.requests, "is_adder": u.is_adder}
     for u in users
