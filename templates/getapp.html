@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Shawty App">
+  <meta property="og:description" content="Get Shawty App - Watch Tiktok Shawty videos any time!">
+  <meta property="og:image" content="https://shoti.fbbot.org/static/cover_shoti.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Shoti API | Get Shawty App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <nav id="navbar">
+    <div>
+      <h1>Shoti API</h1>
+    </div>
+    <div>
+      <button id="menu-btn">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+      
+      <ul>
+        <li><a href="/">Start</a></li>
+        <li><a href="/docs">Documentation</a></li>
+        <li><a href="/leaderboard">Leaderboard</a></li>
+        <li><a href="/status">API Status</a></li>
+        <li><a href="/myapikey">My Apikey</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="nav-item-container" id="nav-items">
+      <ul>
+        <li><a href="/">
+          <ion-icon name="planet-sharp"></ion-icon>
+          <span>Start</span>
+        </a></li>
+        <li><a href="/docs">
+          <ion-icon name="book"></ion-icon>
+          <span>Documentation</span>
+        </a></li>
+        <li><a href="/leaderboard">
+          <ion-icon name="stats-chart"></ion-icon>
+          <span>Leaderboard</span>
+        </a></li>
+        <li><a href="/status">
+          <ion-icon name="information-circle"></ion-icon>
+          <span>API Status</span>
+        </a></li>
+        <li><a href="/myapikey">
+          <ion-icon name="key-sharp"></ion-icon>
+          <span>My Apikey</span>
+        </a></li>
+        
+      </ul>
+    </div>
+
+  <section id="hero">
+    <div>
+      <div class="cmd">
+        <span style="color: #31ff6e;">Download for free!</span>
+      </div>
+
+      <h1>Get Shawty App - Watch Tiktok Shawty videos any time!</h1>
+      <p>
+        Get access to beautiful, high-quality videos with the Shawty app. Download now and enjoy premium content on your device.
+      </p>
+    </div>
+    <div class="buttons-container">
+     <a href="https://www.mediafire.com/file/y9k09jqorqitxab/Shawty_version%25281.0.0%2529.apk/file" target="_blank">
+      <button class="btn-solid">
+        Download Shawty v1.0.0 (75MB)
+      </button>
+     </a>
+    </div>
+    
+  </section>
+  
+ <footer style="width: 100%; background-color: #00060c;">
+  <div style="width: 100%; max-width: 1280px; padding: 16px; margin: auto;">
+    <div style="display: flex; flex-direction: column; align-items: left; justify-content: space-between; text-align: left;">
+      <h1 style="font-size: 1.5rem; color: #31ff6e; margin-bottom: 8px;font-weight: bold;
+    font-family: 'Electrolize', sans-serif;">Shoti API <span style="font-size: 10px;font-family: 'Electrolize', sans-serif;font-weight: bold;color: white;">by @libyzxy0</span></h1>
+      <ul style="display: flex; flex-wrap: wrap; justify-content: left; list-style: none; padding: 0; margin: 0; font-size: 13px; font-weight: 500; color: #9ca3af;">
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">About</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="#" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+        </li>
+        <li style="margin-right: 14px;">
+          <a href="https://github.com/libyzxy0/shoti/blob/main/LICENSE" style="text-decoration: none; color: inherit;">Licensing</a>
+        </li>
+        <li>
+          <a href="https://janlibydelacosta.vercel.app" style="text-decoration: none; color: inherit;">libyzxy0</a>
+        </li>
+      </ul>
+    </div>
+    <hr style="margin: 24px 0; border: 1px solid #252525;" />
+    <span style="display: block; text-align: left; font-size: 13px; color: #9ca3af;">
+      © 2025 
+      <a href="https://shoti.fbbot.org" style="text-decoration: none; color: inherit;">Shoti API</a>. All Rights Reserved.
+    </span>
+  </div>
+</footer>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
