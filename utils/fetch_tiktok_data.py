@@ -22,7 +22,7 @@ def fetch_tiktok_data(short_url):
         print("VIDEO ID » " + video_id)
         
         random_user_agent = random.choice(USER_AGENTS)
-        api_url = f"https://api22-normal-c-alisg.tiktokv.com/aweme/v1/feed/?aweme_id={video_id}&iid=7318518857994389254&device_id=7318517321748022790&channel=googleplay&app_name="
+        api_url = f"https://api22-normal-c-alisg.tiktokv.com/aweme/v1/feed/?aweme_id={video_id}&iid=7318518857994389254&device_id=7318517321748022791&channel=googleplay&app_name="
         headers = {"User-Agent": random_user_agent}
 
         response = requests.get(api_url, headers=headers)
