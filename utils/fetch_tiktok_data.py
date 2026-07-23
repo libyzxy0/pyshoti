@@ -35,7 +35,7 @@ def fetch_tiktok_data(short_url):
             f"&iid={iid}"
             f"&device_id={device_id}"
             f"&channel=googleplay"
-            f"&app_name=musical_ly"
+            f"&app_name=pyshoti"
         )
 
         headers = {
